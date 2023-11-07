@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.*;
+import java.io.UnsupportedEncodingException;
 
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -80,55 +81,62 @@ public class MBTRIP implements ActionListener {
 	private final String url = "jdbc:mysql://121.175.38.138:3306/ur?useSSL=false&allowPublicKeyRetrieval=true"; // 서버주소
 	private final String user = "test"; // DB 아이디
 	private final String dbPassword = "Test@123";// DB 비밀번호
-
+	
+	// 로그인 상태
+	private int login = -1;
 	// 메소드목록
 	// ------------------------------------------------------------------------------------------
-
+	
 	// 암호화 관련 메소드
 	// ------------------------------------------------------------------------------------------
-	// 비밀번호 솔트생성 메소드
-	private String generateSalt() {
-		SecureRandom random = new SecureRandom(); // 난수생성
-		byte[] salt = new byte[16];// 16진수화를 위한 난수 바이트 배열 생성
-		random.nextBytes(salt);// 배열에 값 입력
+	// 비밀번호 솔트생성 메서드
+	public String generateSalt() {
+		SecureRandom randomNumber = new SecureRandom(); // 난수생성을 위한 객체생성
+		byte[] salt = new byte[16];// 난수의 값을 입력할 바이트 배열 생성(배열크기 16 16진수문자열크기 32)
+		randomNumber.nextBytes(salt);// 배열에 값 입력
 		return bytesToHex(salt);// 16진수화를 위해 바이트투헥스로 값 리턴
 	}
 
-	// 솔트,해쉬 16진수화
-	private String bytesToHex(byte[] bytes) { // 솔트, 해쉬 배열 값 가져옴
-		StringBuilder result = new StringBuilder();
+	// 솔트,해시 16진수화
+	private String bytesToHex(byte[] bytes) { // 솔트, 해시 배열 값 가져옴
+		StringBuilder result = new StringBuilder(); //문자열에 반복문을 통해 값을 직접 추가하기위해 객체생성
 
 		for (byte b : bytes) {// for each문 배열크기만큼 반복
-			result.append(String.format("%02x", b));// 16진수화(2자리로)
+			result.append(String.format("%02x", b));// 16진수화(2자리로) 255 -> FF
 		}
 
 		return result.toString();// 문자열화
 	}
 
-	// 비밀번호 해쉬화를 위한 메소드
-	private String hashPassword(String password, String salt) throws NoSuchAlgorithmException {
-		MessageDigest md = MessageDigest.getInstance("SHA-256");// SHA-256방식에 따름
-		md.update(hexToBytes(salt));// salt를 바이트화 한다(update의 메소드는 입력값이 바이트 배열임)
-		byte[] hashedBytes = md.digest(password.getBytes());// 해쉬값을 바이트로 받아서 배열에 입력
+	// 비밀번호 해시화를 위한 메서드
+	public String hashPassword(String password, String salt) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		MessageDigest digest = MessageDigest.getInstance("SHA-256");// 다이제스트 객체생성 SHA-256방식에 따름(64자리)
+		digest.update(hexToBytes(salt));// 다이제스트에 솔트값을 입력
+		byte[] hashedBytes = digest.digest(password.getBytes("UTF-8"));
+		// 다이제스트(솔트)값과 입력받은 패스워드(getBytes를통해 바이트화)로 알고리즘 연산수행
+		// 값을 hashedBytes변수에 저장(바이트배열)
+					
 		return bytesToHex(hashedBytes);// 16진수화를 위해 바이트투헥스로 값 리턴
 	}
 
-	// 솔트 16진수를 다시 바이트화 하기위한 메소드
-	private byte[] hexToBytes(String hex) {
-		int leng = hex.length();// 16진수크기만큼 길이설정
-		byte[] data = new byte[leng / 2];// 16진수크기에 따른 바이트 배열 길이 설정
-		for (int i = 0; i < leng; i += 2) {
+	// 솔트 16진수를 다시 바이트화 하기위한 메서드
+	public byte[] hexToBytes(String hex) {
+					
+		int hexLength = hex.length();// 16진수 문자열 크기만큼 길이설정
+					
+		byte[] data = new byte[hexLength / 2];// 16진수크기에 따른 바이트 배열 크기 설정(16진수 문자열 크기의 절반)
+		for (int i = 0; i < hexLength; i += 2) {
 			data[i / 2] = (byte) ((Character.digit(hex.charAt(i), 16) << 4) + Character.digit(hex.charAt(i + 1), 16));
-                          //반복문을 이용해 16진수 2문자씩 2진수화 처리
-                         //데이터를 우선 digit함수를 통해 10진수화 하는 과정을 거침
-                        //2진수화된 16진수를 왼쪽으로 4비트 이동하는것으로 10진수화 할 수있음
-                       //이후 2번째 16진수문자를  마찬가지로 같은 방식으로 하되 첫번쨰
-                      //16진수문자(2진수화된것에)더 하는 것으로 총 2개의문자를 
-                     //10진수화 하는 것이 가능
-                    //최종적으로 10진수를 2진수화해서 data(2진수 배열)에 저장함
-		} // 16진수>10진수>2진수(바이트배열)
-		return data;// 값 리턴
-	}
+		} 
+			//16진수 문자열 바이트배열화 작업 
+			//16진수 2문자씩 처리함 4비트만큼 << 로이동시키는 것으로 16진수를 10진수화 하는게 가능
+			//2번째문자는 비트이동할 필요없이 더해주기만 해도됨(첫번째에서 10진수화 처리하였음)
+			//16진수를 10진수화하여 바이트배열에 저장
+			//FF -> 255 -128~+127 
+					
+		return data;// 바이트배열 값 리턴
+					
+		}//암호화 메서드 끝
 
 	// 패널 관련 메소드
 	// ------------------------------------------------------------------------------------------
@@ -272,6 +280,8 @@ public class MBTRIP implements ActionListener {
 						// 비밀번호 일치 - 로그인 성공
 						JOptionPane.showMessageDialog(null, "로그인 성공");
 						flogin.dispose();//로그인창 종료
+						// 로그인 상태 변경 임시
+						login = 1;
 					} else {
 						// 비밀번호 불일치 - 로그인 실패
 						JOptionPane.showConfirmDialog(null, "ID 혹은 비밀번호가 틀립니다", "Error", JOptionPane.DEFAULT_OPTION,
@@ -288,18 +298,15 @@ public class MBTRIP implements ActionListener {
 				resultSet.close();
 				statement.close();
 				connection.close();
+				System.out.println("로그인 상태 : "+login);
 
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} catch (SQLException ex) {
-				// sql에러시 출력
+			} catch (Exception ex) {
+				// 에러시 출력
 				ex.printStackTrace();
 				JOptionPane.showConfirmDialog(null, "서버가 오프라인 상태거나 현재 사용 할 수 없습니다", "Error", JOptionPane.DEFAULT_OPTION,
 						JOptionPane.ERROR_MESSAGE);
-			} catch (NoSuchAlgorithmException e) {
-				// 알고리즘화 에러시 출력
-				e.printStackTrace();
-			}
+			} 
+
 		}
 	}
 
@@ -358,17 +365,12 @@ public class MBTRIP implements ActionListener {
 					statement.close();
 					connection.close();
 				}
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} catch (SQLException ex) {
-				// sql에러시 출력
+			} catch (Exception ex) {
+				// 에러시 출력
 				ex.printStackTrace();
 				JOptionPane.showConfirmDialog(null, "서버가 오프라인 상태거나 현재 사용 할 수 없습니다", "Error", JOptionPane.DEFAULT_OPTION,
 						JOptionPane.ERROR_MESSAGE);
-				// 알고리즘화 에러시 출력
-			} catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
-			}
+			} 
 		}
 	}
 
@@ -430,6 +432,7 @@ public class MBTRIP implements ActionListener {
 		Font fontcountry = new Font("맑은 고딕", Font.BOLD, 30);// 국내,국외버튼 폰트
 
 		// set icon
+		// 절대 경로로 지정되어있음
 		ImageIcon icon = new ImageIcon("C:\\Users\\Administrator\\Desktop\\test\\java\\java.png");
 		f.setIconImage(icon.getImage());
 

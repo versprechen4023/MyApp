@@ -1,0 +1,10 @@
+C:\Users\Administrator\source\repos\MyAlram\MyAlram\bin\Debug\MyAlram.exe.config
+C:\Users\Administrator\source\repos\MyAlram\MyAlram\bin\Debug\MyAlram.exe
+C:\Users\Administrator\source\repos\MyAlram\MyAlram\bin\Debug\MyAlram.pdb
+C:\Users\Administrator\source\repos\MyAlram\MyAlram\obj\Debug\MyAlram.csproj.AssemblyReference.cache
+C:\Users\Administrator\source\repos\MyAlram\MyAlram\obj\Debug\MyAlram.Form1.resources
+C:\Users\Administrator\source\repos\MyAlram\MyAlram\obj\Debug\MyAlram.Properties.Resources.resources
+C:\Users\Administrator\source\repos\MyAlram\MyAlram\obj\Debug\MyAlram.csproj.GenerateResource.cache
+C:\Users\Administrator\source\repos\MyAlram\MyAlram\obj\Debug\MyAlram.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\source\repos\MyAlram\MyAlram\obj\Debug\MyAlram.exe
+C:\Users\Administrator\source\repos\MyAlram\MyAlram\obj\Debug\MyAlram.pdb

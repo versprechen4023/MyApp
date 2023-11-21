@@ -35,23 +35,29 @@ namespace MyAlram
             this.label_time = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button_reset = new System.Windows.Forms.Button();
+            this.button_set = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.set_time = new System.Windows.Forms.NumericUpDown();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.alram_stop = new System.Windows.Forms.Button();
+            this.alram_play = new System.Windows.Forms.Button();
+            this.alram_name = new System.Windows.Forms.RichTextBox();
+            this.button_load = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label_alram = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.button_note = new System.Windows.Forms.Button();
             this.button_panel = new System.Windows.Forms.Button();
             this.button_cmd = new System.Windows.Forms.Button();
-            this.button_set = new System.Windows.Forms.Button();
-            this.button_reset = new System.Windows.Forms.Button();
+            this.alram_file = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.set_time)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.SuspendLayout();
@@ -99,6 +105,26 @@ namespace MyAlram
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "타이머 설정";
             // 
+            // button_reset
+            // 
+            this.button_reset.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_reset.Location = new System.Drawing.Point(127, 65);
+            this.button_reset.Name = "button_reset";
+            this.button_reset.Size = new System.Drawing.Size(93, 29);
+            this.button_reset.TabIndex = 5;
+            this.button_reset.Text = "초기화";
+            this.button_reset.UseVisualStyleBackColor = true;
+            // 
+            // button_set
+            // 
+            this.button_set.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_set.Location = new System.Drawing.Point(25, 65);
+            this.button_set.Name = "button_set";
+            this.button_set.Size = new System.Drawing.Size(93, 29);
+            this.button_set.TabIndex = 4;
+            this.button_set.Text = "알람 설정";
+            this.button_set.UseVisualStyleBackColor = true;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -137,6 +163,10 @@ namespace MyAlram
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.alram_stop);
+            this.groupBox3.Controls.Add(this.alram_play);
+            this.groupBox3.Controls.Add(this.alram_name);
+            this.groupBox3.Controls.Add(this.button_load);
             this.groupBox3.Font = new System.Drawing.Font("굴림", 14F, System.Drawing.FontStyle.Bold);
             this.groupBox3.Location = new System.Drawing.Point(12, 118);
             this.groupBox3.Name = "groupBox3";
@@ -144,6 +174,49 @@ namespace MyAlram
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "알람음 설정";
+            // 
+            // alram_stop
+            // 
+            this.alram_stop.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.alram_stop.Location = new System.Drawing.Point(219, 122);
+            this.alram_stop.Name = "alram_stop";
+            this.alram_stop.Size = new System.Drawing.Size(100, 29);
+            this.alram_stop.TabIndex = 4;
+            this.alram_stop.Text = "알람음정지";
+            this.alram_stop.UseVisualStyleBackColor = true;
+            this.alram_stop.Click += new System.EventHandler(this.alram_stop_Click);
+            // 
+            // alram_play
+            // 
+            this.alram_play.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.alram_play.Location = new System.Drawing.Point(115, 122);
+            this.alram_play.Name = "alram_play";
+            this.alram_play.Size = new System.Drawing.Size(97, 29);
+            this.alram_play.TabIndex = 3;
+            this.alram_play.Text = "알람음재생";
+            this.alram_play.UseVisualStyleBackColor = true;
+            this.alram_play.Click += new System.EventHandler(this.alram_play_Click);
+            // 
+            // alram_name
+            // 
+            this.alram_name.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.alram_name.Location = new System.Drawing.Point(6, 20);
+            this.alram_name.Name = "alram_name";
+            this.alram_name.ReadOnly = true;
+            this.alram_name.Size = new System.Drawing.Size(313, 96);
+            this.alram_name.TabIndex = 2;
+            this.alram_name.Text = "";
+            // 
+            // button_load
+            // 
+            this.button_load.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_load.Location = new System.Drawing.Point(6, 122);
+            this.button_load.Name = "button_load";
+            this.button_load.Size = new System.Drawing.Size(103, 29);
+            this.button_load.TabIndex = 1;
+            this.button_load.Text = "알람음등록";
+            this.button_load.UseVisualStyleBackColor = true;
+            this.button_load.Click += new System.EventHandler(this.button_load_Click);
             // 
             // groupBox4
             // 
@@ -211,25 +284,9 @@ namespace MyAlram
             this.button_cmd.UseVisualStyleBackColor = true;
             this.button_cmd.Click += new System.EventHandler(this.button_cmd_Click);
             // 
-            // button_set
+            // alram_file
             // 
-            this.button_set.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_set.Location = new System.Drawing.Point(25, 65);
-            this.button_set.Name = "button_set";
-            this.button_set.Size = new System.Drawing.Size(93, 29);
-            this.button_set.TabIndex = 4;
-            this.button_set.Text = "알람 설정";
-            this.button_set.UseVisualStyleBackColor = true;
-            // 
-            // button_reset
-            // 
-            this.button_reset.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_reset.Location = new System.Drawing.Point(127, 65);
-            this.button_reset.Name = "button_reset";
-            this.button_reset.Size = new System.Drawing.Size(93, 29);
-            this.button_reset.TabIndex = 5;
-            this.button_reset.Text = "초기화";
-            this.button_reset.UseVisualStyleBackColor = true;
+            this.alram_file.Filter = "윈도우미디어파일(*.wav)|*wav|mp3파일(*.mp3)|*.mp3";
             // 
             // Form1
             // 
@@ -250,6 +307,7 @@ namespace MyAlram
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.set_time)).EndInit();
+            this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
@@ -275,6 +333,11 @@ namespace MyAlram
         private System.Windows.Forms.Button button_panel;
         private System.Windows.Forms.Button button_reset;
         private System.Windows.Forms.Button button_set;
+        private System.Windows.Forms.Button button_load;
+        private System.Windows.Forms.OpenFileDialog alram_file;
+        private System.Windows.Forms.RichTextBox alram_name;
+        private System.Windows.Forms.Button alram_stop;
+        private System.Windows.Forms.Button alram_play;
     }
 }
 

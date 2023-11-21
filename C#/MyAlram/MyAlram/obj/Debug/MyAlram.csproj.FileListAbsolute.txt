@@ -8,3 +8,15 @@ C:\Users\Administrator\source\repos\MyAlram\MyAlram\obj\Debug\MyAlram.csproj.Gen
 C:\Users\Administrator\source\repos\MyAlram\MyAlram\obj\Debug\MyAlram.csproj.CoreCompileInputs.cache
 C:\Users\Administrator\source\repos\MyAlram\MyAlram\obj\Debug\MyAlram.exe
 C:\Users\Administrator\source\repos\MyAlram\MyAlram\obj\Debug\MyAlram.pdb
+C:\Users\Administrator\Desktop\pyTest\MyApp\C#\MyAlram\MyAlram\bin\Debug\MyAlram.exe.config
+C:\Users\Administrator\Desktop\pyTest\MyApp\C#\MyAlram\MyAlram\bin\Debug\MyAlram.exe
+C:\Users\Administrator\Desktop\pyTest\MyApp\C#\MyAlram\MyAlram\bin\Debug\MyAlram.pdb
+C:\Users\Administrator\Desktop\pyTest\MyApp\C#\MyAlram\MyAlram\obj\Debug\MyAlram.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\pyTest\MyApp\C#\MyAlram\MyAlram\obj\Debug\MyAlram.Form1.resources
+C:\Users\Administrator\Desktop\pyTest\MyApp\C#\MyAlram\MyAlram\obj\Debug\MyAlram.Properties.Resources.resources
+C:\Users\Administrator\Desktop\pyTest\MyApp\C#\MyAlram\MyAlram\obj\Debug\MyAlram.csproj.GenerateResource.cache
+C:\Users\Administrator\Desktop\pyTest\MyApp\C#\MyAlram\MyAlram\obj\Debug\MyAlram.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\pyTest\MyApp\C#\MyAlram\MyAlram\obj\Debug\MyAlram.exe
+C:\Users\Administrator\Desktop\pyTest\MyApp\C#\MyAlram\MyAlram\obj\Debug\MyAlram.pdb
+C:\Users\Administrator\Desktop\pyTest\MyApp\C#\MyAlram\MyAlram\obj\Debug\Interop.WMPLib.dll
+C:\Users\Administrator\Desktop\pyTest\MyApp\C#\MyAlram\MyAlram\obj\Debug\MyAlram.csproj.ResolveComReference.cache

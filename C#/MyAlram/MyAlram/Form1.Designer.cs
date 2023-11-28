@@ -39,7 +39,7 @@ namespace MyAlram
             this.button_set = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.set_minute = new System.Windows.Forms.NumericUpDown();
             this.set_time = new System.Windows.Forms.NumericUpDown();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.alram_stop = new System.Windows.Forms.Button();
@@ -53,9 +53,10 @@ namespace MyAlram
             this.button_panel = new System.Windows.Forms.Button();
             this.button_cmd = new System.Windows.Forms.Button();
             this.alram_file = new System.Windows.Forms.OpenFileDialog();
+            this.alram_timer = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.set_minute)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.set_time)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -95,7 +96,7 @@ namespace MyAlram
             this.groupBox2.Controls.Add(this.button_set);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.numericUpDown1);
+            this.groupBox2.Controls.Add(this.set_minute);
             this.groupBox2.Controls.Add(this.set_time);
             this.groupBox2.Font = new System.Drawing.Font("굴림", 14F, System.Drawing.FontStyle.Bold);
             this.groupBox2.Location = new System.Drawing.Point(12, 12);
@@ -114,6 +115,7 @@ namespace MyAlram
             this.button_reset.TabIndex = 5;
             this.button_reset.Text = "초기화";
             this.button_reset.UseVisualStyleBackColor = true;
+            this.button_reset.Click += new System.EventHandler(this.button_reset_Click);
             // 
             // button_set
             // 
@@ -124,6 +126,7 @@ namespace MyAlram
             this.button_set.TabIndex = 4;
             this.button_set.Text = "알람 설정";
             this.button_set.UseVisualStyleBackColor = true;
+            this.button_set.Click += new System.EventHandler(this.button_set_Click);
             // 
             // label2
             // 
@@ -145,13 +148,13 @@ namespace MyAlram
             this.label1.TabIndex = 2;
             this.label1.Text = "시";
             // 
-            // numericUpDown1
+            // set_minute
             // 
-            this.numericUpDown1.Font = new System.Drawing.Font("굴림", 12F);
-            this.numericUpDown1.Location = new System.Drawing.Point(156, 24);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(96, 26);
-            this.numericUpDown1.TabIndex = 1;
+            this.set_minute.Font = new System.Drawing.Font("굴림", 12F);
+            this.set_minute.Location = new System.Drawing.Point(156, 24);
+            this.set_minute.Name = "set_minute";
+            this.set_minute.Size = new System.Drawing.Size(96, 26);
+            this.set_minute.TabIndex = 1;
             // 
             // set_time
             // 
@@ -233,7 +236,7 @@ namespace MyAlram
             // 
             this.label_alram.AutoSize = true;
             this.label_alram.Font = new System.Drawing.Font("굴림", 12F);
-            this.label_alram.Location = new System.Drawing.Point(25, 66);
+            this.label_alram.Location = new System.Drawing.Point(45, 68);
             this.label_alram.Name = "label_alram";
             this.label_alram.Size = new System.Drawing.Size(150, 16);
             this.label_alram.TabIndex = 6;
@@ -261,6 +264,7 @@ namespace MyAlram
             this.button_note.TabIndex = 2;
             this.button_note.Text = "메모장";
             this.button_note.UseVisualStyleBackColor = true;
+            this.button_note.Click += new System.EventHandler(this.button_note_Click);
             // 
             // button_panel
             // 
@@ -288,6 +292,11 @@ namespace MyAlram
             // 
             this.alram_file.Filter = "윈도우미디어파일(*.wav)|*wav|mp3파일(*.mp3)|*.mp3";
             // 
+            // alram_timer
+            // 
+            this.alram_timer.Interval = 1000;
+            this.alram_timer.Tick += new System.EventHandler(this.alram_timer_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -298,6 +307,8 @@ namespace MyAlram
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "알람";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -305,7 +316,7 @@ namespace MyAlram
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.set_minute)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.set_time)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
@@ -324,7 +335,7 @@ namespace MyAlram
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label_alram;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown set_minute;
         private System.Windows.Forms.NumericUpDown set_time;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
@@ -338,6 +349,7 @@ namespace MyAlram
         private System.Windows.Forms.RichTextBox alram_name;
         private System.Windows.Forms.Button alram_stop;
         private System.Windows.Forms.Button alram_play;
+        private System.Windows.Forms.Timer alram_timer;
     }
 }
 

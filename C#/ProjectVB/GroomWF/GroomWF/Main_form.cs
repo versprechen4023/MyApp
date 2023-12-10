@@ -9,12 +9,19 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace GroomWF
 {
     public partial class Main_form : Form
     {
+        // 어드민 정보
         string emp_num;
+        // 선택 예약 번호
+        int res_num;
+        // 선택 예약 상태
+        int res_status = 0;
 
         // DB 정보
         string uri = "121.175.38.138";
@@ -33,9 +40,38 @@ namespace GroomWF
             this.emp_num = emp_num;
 
             conn = $"Server={uri};Port={port};Database={database};Uid={user};Pwd={dbPassword};AllowPublicKeyRetrieval=true;allow user variables=true;";
+
+            // 검색결과 함수 호출
+            SelectQuery();
+
+            // 이벤트 등록하기
+            radioButton1.CheckedChanged += RadioButton_Changed;
+            radioButton2.CheckedChanged += RadioButton_Changed;
+            radioButton3.CheckedChanged += RadioButton_Changed;
         }
 
-        private void Main_form_Load(object sender, EventArgs e)
+        private string CheckStatus(int res_status)
+        {
+            string status;
+
+            switch (res_status)
+            {
+                case 0:
+                    status = "대기";
+                    break;
+                case 1:
+                    status = "완료";
+                    break;
+                case 2:
+                    status = "취소";
+                    break;
+                default:
+                    status = "몰루";
+                    break;
+            }
+            return status;
+        }
+        private void SelectQuery()
         {
             try
             {
@@ -76,21 +112,8 @@ namespace GroomWF
 
                                 // 상태가 숫자라 숫자에 따라 한글로 변환
                                 string status = "";
-                                switch (Convert.ToInt32(reader["res_status"]))
-                                {
-                                    case 0:
-                                        status = "대기";
-                                        break;
-                                    case 1:
-                                        status = "완료";
-                                        break;
-                                    case 2:
-                                        status = "취소";
-                                        break;
-                                    default:
-                                        status = "몰루";
-                                        break;
-                                }
+
+                                status = CheckStatus(Convert.ToInt32(reader["res_status"]));
 
                                 // 날짜랑 시간은 합쳐서 표기
                                 string resDateTime = $"{date} {time}";
@@ -120,11 +143,86 @@ namespace GroomWF
                 MessageBox.Show(ex.Message);
                 Console.WriteLine(ex.Message);
             }
+        }
+        private void Main_form_Load(object sender, EventArgs e)
+        {
 
         }
 
+        // 라디오 버튼 이벤트 받기
+        private void RadioButton_Changed(object sender, EventArgs e)
+        {
+            System.Windows.Forms.RadioButton radio = sender as System.Windows.Forms.RadioButton;
+
+            if (radio.Checked)
+            {
+                switch (radio.Name)
+                {
+                    case "radioButton1":
+                        res_status = 0;
+                        break;
+                    case "radioButton2":
+                        res_status = 1;
+                        break;
+                    case "radioButton3":
+                        res_status = 2;
+                        break;
+                }
+            }
+        }
+
+        // 리스트뷰 이벤트 처리
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = listView1.SelectedItems[0];
+                this.res_num = Convert.ToInt32(selectedItem.Text);
+            }
+        }
+
+        private void status_button_Click(object sender, EventArgs e)
+        {
+            if (DialogResult.OK == MessageBox.Show($"예약번호 {res_num}을 {CheckStatus(this.res_status)}상태로 변경하시겠습니까?", "경고", MessageBoxButtons.OKCancel))
+            {
+
+                try
+                {
+                    using (MySqlConnection mysql = new MySqlConnection(conn))
+                    {
+                        mysql.Open();
+
+                        string updateQuery = "UPDATE reservation SET res_status = @status WHERE emp_num = @emp_num AND res_num = @res_num;";
+
+                        using (MySqlCommand command = new MySqlCommand(updateQuery, mysql))
+                        {
+                            // 파라미터에 추가
+                            command.Parameters.AddWithValue("@status", this.res_status);
+                            command.Parameters.AddWithValue("@res_num", this.res_num);
+                            command.Parameters.AddWithValue("@emp_num", this.emp_num);
+
+                            if (command.ExecuteNonQuery() == 1)
+                            {
+                                MessageBox.Show("업데이트 성공");
+                            }
+                            else
+                            {
+                                MessageBox.Show("업데이트에 문제 발생");
+                            }
+
+                            SelectQuery();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show("서버에 문제가 발생했습니다 관리자에게 문의하십시오");
+                    MessageBox.Show(ex.Message);
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
     }
-    
 }
 
 

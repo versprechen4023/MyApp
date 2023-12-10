@@ -53,11 +53,11 @@ namespace GroomWF
 
         private void login_form_Load(object sender, EventArgs e)
         {
-            //Main_form form2 = new Main_form("2");
-            //form2.Show();
-            //// 이벤트 저장
-            //form2.FormClosed += Form2_WhenClosed;
-            //this.Hide();
+            Main_form form2 = new Main_form("2");
+            form2.Show();
+            // 이벤트 저장
+            form2.FormClosed += Form2_WhenClosed;
+            this.Hide();
         }
 
         private void login_button_Click(object sender, EventArgs e)

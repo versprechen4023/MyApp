@@ -41,9 +41,13 @@
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.status_button = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.search = new System.Windows.Forms.TextBox();
             this.search_button = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.searchAll_button = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -52,9 +56,9 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.listView1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 109);
+            this.groupBox1.Location = new System.Drawing.Point(12, 118);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(650, 366);
+            this.groupBox1.Size = new System.Drawing.Size(650, 357);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "예약 리스트";
@@ -72,7 +76,7 @@
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(6, 20);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(639, 340);
+            this.listView1.Size = new System.Drawing.Size(639, 331);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -156,14 +160,66 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.searchAll_button);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.comboBox1);
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.search);
             this.groupBox2.Controls.Add(this.search_button);
             this.groupBox2.Location = new System.Drawing.Point(12, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(264, 91);
+            this.groupBox2.Size = new System.Drawing.Size(380, 100);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "검색";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(35, 47);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "검색조건";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "예약자",
+            "연락처"});
+            this.comboBox1.Location = new System.Drawing.Point(94, 44);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(132, 20);
+            this.comboBox1.TabIndex = 8;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(35, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 12);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "검색어";
+            // 
+            // search
+            // 
+            this.search.Location = new System.Drawing.Point(94, 15);
+            this.search.Name = "search";
+            this.search.Size = new System.Drawing.Size(132, 21);
+            this.search.TabIndex = 7;
+            // 
+            // search_button
+            // 
+            this.search_button.Location = new System.Drawing.Point(232, 15);
+            this.search_button.Name = "search_button";
+            this.search_button.Size = new System.Drawing.Size(67, 49);
+            this.search_button.TabIndex = 6;
+            this.search_button.Text = "검색";
+            this.search_button.UseVisualStyleBackColor = true;
+            this.search_button.Click += new System.EventHandler(this.search_button_Click);
             // 
             // groupBox3
             // 
@@ -178,21 +234,15 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "예약상태 처리";
             // 
-            // search_button
+            // searchAll_button
             // 
-            this.search_button.Location = new System.Drawing.Point(183, 15);
-            this.search_button.Name = "search_button";
-            this.search_button.Size = new System.Drawing.Size(75, 70);
-            this.search_button.TabIndex = 6;
-            this.search_button.Text = "검색";
-            this.search_button.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(45, 35);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(132, 21);
-            this.textBox1.TabIndex = 7;
+            this.searchAll_button.Location = new System.Drawing.Point(305, 15);
+            this.searchAll_button.Name = "searchAll_button";
+            this.searchAll_button.Size = new System.Drawing.Size(69, 49);
+            this.searchAll_button.TabIndex = 10;
+            this.searchAll_button.Text = "전체검색";
+            this.searchAll_button.UseVisualStyleBackColor = true;
+            this.searchAll_button.Click += new System.EventHandler(this.searchAll_button_Click);
             // 
             // Main_form
             // 
@@ -230,7 +280,11 @@
         private System.Windows.Forms.Button status_button;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox search;
         private System.Windows.Forms.Button search_button;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button searchAll_button;
     }
 }

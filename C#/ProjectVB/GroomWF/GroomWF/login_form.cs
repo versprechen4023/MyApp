@@ -53,11 +53,11 @@ namespace GroomWF
 
         private void login_form_Load(object sender, EventArgs e)
         {
-            Main_form form2 = new Main_form("2");
-            form2.Show();
-            // 이벤트 저장
-            form2.FormClosed += Form2_WhenClosed;
-            this.Hide();
+            //Main_form form2 = new Main_form(2);
+            //form2.Show();
+            //// 이벤트 저장
+            //form2.FormClosed += Form2_WhenClosed;
+            //this.Hide();
         }
 
         private void login_button_Click(object sender, EventArgs e)
@@ -98,7 +98,7 @@ namespace GroomWF
                                 string u_pass = reader.GetString("u_pass");
                                 string u_salt = reader.GetString("u_salt");
                                 string role = reader.GetString("u_role");
-                                string emp_num = reader.GetString("u_num");
+                                int emp_num = reader.GetInt32("u_num");
 
                                 // 계산을 위한 바이트배열 변환
                                 byte[] passBytes = System.Text.UTF8Encoding.UTF8.GetBytes(user_pass);
